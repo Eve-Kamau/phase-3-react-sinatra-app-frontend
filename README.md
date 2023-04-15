@@ -11,7 +11,9 @@
   <a href="#license">License</a>
 </p>
 
+<div align="center">
 <img width="252" alt="image" src="https://user-images.githubusercontent.com/118021645/232108727-0017fea0-91d7-4b97-aa6c-7bfa8953efad.png">
+</div>
 
 ##Project Description 
 
