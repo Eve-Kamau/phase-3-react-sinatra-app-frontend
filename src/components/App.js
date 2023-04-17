@@ -6,7 +6,6 @@ import RandomButton from "./RandomButton"
 
 function App() {
 const [jobs, setJobs] = useState([]);
-const [pickedJob, setPickedJob] = useState([]);
 const [findJob, setFindJob] = useState("");
 const [filteredJobs, setFilteredJobs] = useState([]);
 
@@ -49,6 +48,7 @@ useEffect(() => {
 //     setJobs([...jobs, newJob]);
 //    }
 
+// const [pickedJob, setPickedJob] = useState([]);
 //   function onDeleteJob(deleteJob){
 //     setPickedJob(pickedJob.filter((job) => job.id !== deleteJob.id));
 //   }

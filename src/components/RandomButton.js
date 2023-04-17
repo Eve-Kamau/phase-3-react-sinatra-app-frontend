@@ -8,7 +8,7 @@ function RandomButton(onAddRandomJob) {
     const randomJob = getRandomJob();
       if (!randomJobs.includes(randomJob)) {
 			setRandomJobs([...randomJobs, randomJob]);
-			fetch("http://localhost:8003/planeteers", {
+			fetch("http://localhost:9292/jobs", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -33,3 +33,27 @@ function RandomButton(onAddRandomJob) {
 }
 
 export default RandomButton;
+
+
+
+//     const handleAddTrail = (newTrail) => {
+//         fetch("http://localhost:9292/trails", {
+//             method: 'POST',
+//             headers: { 
+//               "Content-Type": "application/json", 
+//             },
+//             body: JSON.stringify(newTrail),
+//           })
+//           .then(r => r.json())
+//           .then((newTrail) => handleAddTrailToTrails(newTrail))
+//     }
+
+//     post '/trails' do
+//     trail = Trail.create(
+//       name: params[:name],
+//       location: params[:location],
+//       distance: params[:distance],
+//       elevation_gain: params[:elevation_gain]
+//     )
+//     trail.to_json(include: :athletes)
+//   end
