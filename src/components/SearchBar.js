@@ -1,30 +1,21 @@
 import React from "react";
-import JobCard from "./JobCard";
 
-function SearchBar({ filterJob,searchJobs }) {
+function SearchBar({ filter, handleSearch }) {
 
-  function handleChangeSort(e){
-    filterJob(e.target.checked)
-  }
 
   return (
     <>
-    <div className="search">
+    <div className="Search" >
     <input 
      type="text" 
      name="search" 
+     filter = {filter}
      placeholder="Find a Job..." 
-     onChange={(e) => searchJobs(e.target.value)}
-     />
+     onChange={handleSearch}/>
     </div>
-
-    <div>
-    {filterJob.map((job) => (
-      <JobCard job={job} key={job.id}/>
-      ))}
-     </div>
     </>
-  );
+);
 }
 
 export default SearchBar;
+

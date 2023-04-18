@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import logo from "./images/logo.jpg";
-import SearchBar from "./SearchBar";
 import JobList from "./JobList";
-import RandomButton from "./RandomButton"
+import NewJobForm from "./NewJobForm";
+import ApplicantData from "./ApplicantData";
 
 function App() {
 const [jobs, setJobs] = useState([]);
-const [findJob, setFindJob] = useState("");
-const [filteredJobs, setFilteredJobs] = useState([]);
+const [filter, setFilter] = useState("");
 
 useEffect(() => {				
     fetch("http://localhost:9292/jobs")				
@@ -19,45 +19,32 @@ useEffect(() => {
     .catch((err)=> console.log("Error fetching Jobs!"));				
   }, []);		
 
-  function searchJobs(searchJob) {
-    setFindJob(searchJob)
-     if (findJob !== ""){
-     const filteredJobs = jobs.filter(job => {
-         return job.name.toLowerCase().includes(findJob.toLowerCase());
-     })
-     setFilteredJobs(filteredJobs)
-     } else {
-     setFilteredJobs(jobs)
+  function onDeleteJob(deleted) {
+    const updatedJobs = jobs.filter((item) => item.id !== deleted.id);
+    setJobs(updatedJobs);
     }
-  }
+   
+  function handleSearch(event) {
+    setFilter(event.target.value);
+    }
+    
+    function handleAddJob(newJob) {
+    setJobs([...jobs, newJob]);
+    }
 
   return (
     <div className="centered">
       <img src={logo} alt="Logo" width="150" height="150" padding="100" id="main-header"/>
       <p>AFRO JOBS DASHBOARD</p>
       <p>This application allows jobseekers to see open job listings for possible recruitment where they can apply what interests one!</p>
-       <SearchBar jobs={jobs} filterJob={filteredJobs} searchJobs={searchJobs}/> 
-       <RandomButton/>
-       <JobList jobs={jobs}/>  
+     
+      <Routes>
+       <Route path="/jobs" element={<JobList jobs={jobs} onDeleteJob={onDeleteJob} filter={filter} handleSearch={handleSearch} />}/>  
+       <Route path="/jobs/new" element={<NewJobForm handleAddJob={handleAddJob} />} />
+       <Route path="/applicants" element={<ApplicantData />} />
+      </Routes>
      </div>
      )
   }
  export default App; 
 
-//  function onApplyJob(newJob){
-//     setJobs([...jobs, newJob]);
-//    }
-
-// const [pickedJob, setPickedJob] = useState([]);
-//   function onDeleteJob(deleteJob){
-//     setPickedJob(pickedJob.filter((job) => job.id !== deleteJob.id));
-//   }
-
-//   function retireJob(job){
-//     fetch(`http://localhost:9292/jobs/${job.id}`, {
-//         method: "DELETE"
-//       })
-//       .then(res => res.json())
-//       .then(() => {
-//       removeOneJob(job)
-//       })

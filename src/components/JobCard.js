@@ -1,39 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, {useState } from "react";
 
-function JobCard({ job }) {
-	// const [job, setJob] = useState([]);
-	// const { id } = useParams();
+function JobCard({ job, onDeleteJob }) {
+	const [isDisabled, setDisabled] = useState(false);
 
-	// useEffect(() => {
-	// 	fetch(`http://localhost:9292/jobs/${id}`)
-	// 		.then((res) => res.json())
-	// 		.then(data => {
-  //      setJob(data)
-  //     console.log("One Job is Fetched and Found!")		
-  //   })	
-	// 		.catch((err) => console.log("Error: ", err.message));
-	// }, [id]);
-	
-  console.log(job)
+	const searchStyle = {
+		display: "flex",
+		padding: "10px",
+		justifyContent: "center",
+		gap: "30px",
+		};
 
-  // function handleDelete(){
-  //   fetch(`http://localhost:9292/jobs/${job.id}`, {
-  //     method: "DELETE"
-  //   })
-  //   .then(res => res.json())
-  //   .then(() => {
-  //     onDeleteJob(job)
-  //   })
-  // }
+	function handleApplyJob() {
+		alert('Successful Application Submitted! Button Now Disabled!');
+		setDisabled(true);
+		}
 
-  // function handleApply(){
-  //   onApplyJob(job)
-  // }
+	function handleDeleteJob(){
+	  fetch(`http://localhost:9292/jobs/${job.id}`, {
+	    method: "DELETE"
+	  })
+	  .then(res => res.json())
+	  .then(() => {
+	    onDeleteJob(job)
+	  })
+	}
 
   return (
   
-<div className="menu-container container-fluid">
+<div className="menu-container container-fluid" style={searchStyle}>
 
 			<div className="card" style={{ width: "30rem" }}>
 				{/* <img src={item.poster_url} className="card-img-top" alt={item.name} /> */}
@@ -47,14 +41,17 @@ function JobCard({ job }) {
 						<p className="list-group-item">USD: {job.job_payrate}</p>
                         <p className="list-group-item">Location:{job.job_location}</p>
                         <p className="list-group-item">Industry: {job.job_industry}</p>
-                        <p className="list-group-item">Employer_ID:{job.employer_id}</p>
+                        <p className="list-group-item">Company Name:{job.job_companyname}</p>
 					</ul>
-					<div className="spec-buttons">
-						<button className="btn btn-primary" onClick={""}>
-							Apply
-						</button>
-						<button className="btn btn-danger" onClick={""}>
-							Delete
+					<div class="container">
+						<button type="button" class="btn btn-success" onClick={handleApplyJob} disabled={isDisabled}>
+							Apply Job
+						</button>  &nbsp; &nbsp;
+						{/* <button type="button" class="btn btn-info" onClick={""}>
+							Amend Job
+						</button> &nbsp; &nbsp; */}
+						<button type="button" class="btn btn-danger" onClick={handleDeleteJob}>
+							Delete Job
 						</button>
 					</div>
 				</div>
@@ -64,3 +61,4 @@ function JobCard({ job }) {
 }
 
 export default JobCard;
+
